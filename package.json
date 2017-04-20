@@ -1,0 +1,20 @@
+{
+  "name": "aws_lambda_function_project",
+  "version": "1.0.0",
+  "description": "processed db data ",
+  "private": "true",
+"dependencies": {
+    "moment": "2.8.4"
+},
+"devDependencies": {
+    "grunt": "0.4.*",
+    "grunt-aws-lambda": "0.*.*",
+    "aws-sdk": "2.0.23"
+},
+"bundledDependencies": [
+    "moment"
+],
+  "author": "",
+  "license": "BSD"
+}
+
