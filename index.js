@@ -29,6 +29,14 @@ module.exports.handler = function(event, context) {
             console.log("Unable to query. Error:", JSON.stringify(err, null, 2));
         } else {
             var filteredData = filterByLocation(dayData, sensorLocation);
+            if(filteredData.length === 0){
+                var returnData = {
+                    Day: { "graphData": [], "graphLabels": [] },
+                    Month: { "graphData": [], "graphLabels": [] },
+                    CurrentReading: {}
+                };
+                return context.succeed(returnData);
+            }
             console.log("Query succeeded.");
             var currentTemperature = filteredData[filteredData.length -1];
             var processedDayData = processDataDay(filteredData, sensorAttribute);
@@ -38,7 +46,6 @@ module.exports.handler = function(event, context) {
                     console.log("Unable to query. Error:", JSON.stringify(err, null, 2));
                 } else {
                     var filteredData = filterByLocation(monthData, sensorLocation);
-                    //console.log(filteredData);
                     console.log("Query succeeded.");
                     var processMonthData = processDataMonth(filteredData, sensorAttribute);
                     var returnData = {
@@ -46,7 +53,6 @@ module.exports.handler = function(event, context) {
                         Month: processMonthData,
                         CurrentReading: currentTemperature
                     };
-                    //sendResponse(res, 200, returnData);
                     context.succeed(returnData);
                 }
             });
